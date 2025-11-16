@@ -13,7 +13,17 @@ const promptTemplate = PromptTemplate.fromTemplate(
 );
 
 
-const prompt = await promptTemplate.invoke({
+// Prompt can be created by using the PromptTemplate class directly and passing the input variables for the prompt in another key
+// This is a better way as compared to thr above example
+
+const p = new PromptTemplate({
+    template: "Explain {userInput} in simple terms. Provide only the explanation without showing your thinking process.",
+    inputVariables: ['userInput'],
+    validateTemplate: true, // This will validate the template and throw an error if the template is invalid for eg if we have multiple variables in the template like {userInput} and {userInput2} then it will throw an error
+})
+
+
+const prompt = await p.invoke({
     userInput: 'pythagoras theorem',
 });
 
