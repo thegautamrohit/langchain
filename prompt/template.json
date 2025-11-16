@@ -1,0 +1,17 @@
+{
+  "lc": 1,
+  "type": "constructor",
+  "id": [
+    "langchain_core",
+    "prompts",
+    "prompt",
+    "PromptTemplate"
+  ],
+  "kwargs": {
+    "template": "\nYou are a viral tweet generator.\n\nWrite a viral tweet about {topic} in under 100 words.\n",
+    "input_variables": [
+      "topic"
+    ],
+    "validate_template": true
+  }
+}
