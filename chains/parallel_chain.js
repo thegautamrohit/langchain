@@ -18,11 +18,9 @@ const quizzesPrompt = new PromptTemplate({
     inputVariables: ["character"],
 });
 
-const parallelChain = new RunnableParallel({
-    steps: {
-        character_description: characterPrompt.pipe(LLM),
-        quizzes: quizzesPrompt.pipe(LLM),
-    }
+const parallelChain = RunnableParallel.from({
+    character_description: characterPrompt.pipe(LLM),
+    quizzes: quizzesPrompt.pipe(LLM),
 });
 
 const finalPrompt = new PromptTemplate({
@@ -57,5 +55,5 @@ const [analysis, summary, keywords] = await Promise.all([
 // Also there is an approach of batching to run the LLM calls at once in parallel
 
 // Same prompt on 100 different users
-const userPrompts = users.map(u => `Summarize ${u}`);
-const results = await chain.batch(userPrompts, { maxConcurrency: 5 });
+// const userPrompts = users.map(u => `Summarize ${u}`);
+// const results = await chain.batch(userPrompts, { maxConcurrency: 5 });
