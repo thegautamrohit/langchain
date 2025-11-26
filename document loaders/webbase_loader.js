@@ -11,7 +11,7 @@ const LLM = new Ollama({
     temperature: 0.7,
 });
 
-// const parser = new StringOutputParser();
+const parser = new StringOutputParser();
 // const loader = YoutubeLoader.createFromUrl("https://youtu.be/bZQun8Y4L2A", {
 //     language: "en",
 //     addVideoInfo: true,
@@ -20,21 +20,21 @@ const LLM = new Ollama({
 // console.log(docs)
 
 const webLoader = new CheerioWebBaseLoader(
-    "https://www.amazon.in/Samsung-Smartphone-Whitesilver-Snapdragon-ProVisual/dp/B0DSKL9MQ8/ref=sr_1_1_sspa"
+    "https://www.gsmarena.com/samsung_galaxy_s25-13610.php"
 );
 
 const docs2 = await webLoader.load();
-console.log(docs2);
+// console.log(docs2);
 
 const prompt = new PromptTemplate({
-    template: "Write a summary for this under 50 words: {text}",
+    template: "Write a list of pointers of the features fo the device mentioned on the website {text}",
     inputVariables: ["text"],
 });
 
-// const chain = prompt.pipe(LLM).pipe(parser);
+const chain = prompt.pipe(LLM).pipe(parser);
 
-// const result = await chain.invoke({
-//     text: docs[0]?.pageContent,
-// });
+const result = await chain.invoke({
+    text: docs2[0]?.pageContent,
+});
 
-// console.log(result);
+console.log(result);
